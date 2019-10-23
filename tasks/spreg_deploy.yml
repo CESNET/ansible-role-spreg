@@ -1,0 +1,57 @@
+---
+- name: "SPreg - Prepare mainfolder for configuration"
+  file:
+    path: "{{ spreg_config_destionation }}"
+    state: directory
+  tags:
+    - configuration
+
+- name: "SPreg - Prepare subfolders for configuration"
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ spreg_config_destionation }}/attrs"
+  tags:
+    - configuration
+
+- name: "Spreg - Copy configuration files"
+  template:
+    src: "templates/spreg/{{ item }}.jinja2"
+    dest: "{{ spreg_config_destionation }}/{{ item }}"
+    backup: yes
+  loop: "{{ spreg_list_of_configuration_files }}"
+  notify: "restart tomcat"
+  tags:
+    - configuration
+
+- name: "SPreg - download code"
+  git:
+    repo: "{{ spreg_repository_URL }}"
+    dest: "{{ spreg_source_code_dest }}"
+    version: "{{ spreg_source_code_version }}"
+    force: yes
+    update: yes
+  register: spreg_git_repo
+  tags:
+    - upgrade
+
+- name: "Spreg - Build app"
+  shell: "cd {{ spreg_source_code_dest }} && mvn clean package -Dprod=True -Dserver.url={{ spreg_shibboleth_hostname }} -Dserver.contextPath={{ spreg_context_path }} -DskipTests"
+  register: mvn_result
+  when: spreg_git_repo.changed
+  tags:
+    - upgrade
+
+- name: "Spreg - Copy war file to tomcat"
+  copy:
+    remote_src: True
+    src: "{{ spreg_source_code_dest }}/api/target/spreg.war"
+    dest: "/var/lib/tomcat9/webapps/"
+    backup: yes
+  notify: "restart tomcat"
+  tags:
+    - upgrade
+
+- name: "flush handlers"
+  meta: flush_handlers

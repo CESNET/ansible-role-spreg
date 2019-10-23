@@ -1,0 +1,82 @@
+##############################################################################
+##                                                                          ##
+##                         MANAGED BY ANSIBLE                               ##
+##                                                                          ##
+## Messages configuration template. Contains all of the available options   ##
+## for configuring the email notifications sent by the application.         ##
+## notice: for newLine use &lt;br/&gt;                                      ##
+## ------------------------------------------------------------------------ ##
+## tags:                                                                    ##
+## %REQUEST_ID% - will be replaced by ID of request                         ##
+## %SERVICE_NAME% - will be replaced by the name of service                 ##
+## %SERVICE_DESCRIPTION% - will be replaced by the description of service   ##
+## %NEW_STATUS% - will be replaced by new status of request                 ##
+## %REQUEST_DETAIL_LINK% - will be replaced by the link to request detail   ##
+## %APPROVAL_LINK% - will be replaced by link for request approval          ##
+##############################################################################
+
+# Coma separated list of application administrator emails
+appAdmin.emails={{ spreg_template_mail_emails|join(',') }}
+
+# SMTP host for sending mails
+host={{ spreg_template_mail_smtphost }}
+
+# Message FROM field
+from={{ spreg_template_mail_from }}
+
+# Footer of the messages
+footer={{ spreg_template_mail_footer }}
+
+# Subject of message when notification is sent to user about created request
+create.user.subject={{ spreg_template_mail_create_user_subject }}
+
+# Message body when notification is sent to user about created request
+create.user.message={{ spreg_template_mail_create_user_message }}
+
+# Subject of message when notification is sent to admin about created request
+create.admin.subject={{ spreg_template_mail_create_admin_subject }}
+
+# Message body when notification is sent to admin about created request
+create.admin.message={{ spreg_template_mail_create_admin_message }}
+
+# Subject of message when notification is sent to user about updated request
+update.user.subject={{ spreg_template_mail_update_user_subject }}
+
+# Message body when notification is sent to user about updated request
+update.user.message={{ spreg_template_mail_update_user_message }}
+
+# Subject of message when notification is sent to admin about updated request
+update.admin.subject={{ spreg_template_mail_update_admin_subject }}
+
+# Message body when notification is sent to admin about created request
+update.admin.message={{ spreg_template_mail_update_admin_message }}
+
+# Subject of message when notification is sent to user about updated request
+status_updated.subject={{ spreg_template_mail_status_updated_subject }}
+
+# Message body when notification is sent to user about updated request
+status_updated.message={{ spreg_template_mail_status_updated_message }}
+
+# Subject of message when notification is sent to user about signed request to move SP to production
+signed.user.subject={{ spreg_template_mail_signed_user_subject }}
+
+#Message body of message when notification is sent to user about signed request to move SP to production
+signed.user.message={{ spreg_template_mail_signed_user_message }}
+
+# Subject of message when notification is sent to admin about signed request to move SP to production
+signed.admin.subject={{ spreg_template_mail_signed_admin_subject }}
+
+# Message body of message when notification is sent to admin about signed request to move SP to production
+signed.admin.message={{ spreg_template_mail_signed_admin_message }}
+
+# Subject of message when notification is sent to authority when moving to production has been requested
+production.authorities.subject={{ spreg_template_mail_production_authorities_subject }}
+
+# Message body when notification is sent to authority when moving to production has been requested
+production.authorities.message={{ spreg_template_mail_production_authorities_message }}
+
+# Subject of message when notification is sent to user when asked to become service administrator
+admins.add.subject={{ spreg_template_mail_admins_add_subject }}
+
+# Message body when notification is sent to user when asked to become service administrator
+admins.add.message={{ spreg_template_mail_admins_add_message }}

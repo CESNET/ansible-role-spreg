@@ -1,0 +1,19 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: spreg
+  author: Pavel Vyskocil
+  company: CESNET
+  description: Installs and configures SP registration application.
+  license: Apache
+  min_ansible_version: 2.5
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+  galaxy_tags:
+    - spreg
+
+allow_duplicates: true

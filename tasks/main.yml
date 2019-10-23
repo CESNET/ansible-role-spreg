@@ -1,0 +1,4 @@
+---
+- import_tasks: spreg.yml
+  tags:
+    - spreg

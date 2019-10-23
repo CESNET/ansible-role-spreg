@@ -1,0 +1,460 @@
+---
+#################################
+#################################
+##  Redefine for your machine  ##
+#################################
+#################################
+
+spreg_email_address: "proxyidp@cesnet.cz"
+spreg_server_name: "spreg.aai.example.com"
+
+# List of available languages
+# For example ['cs', 'en']
+spreg_available_languages: []
+
+# Specify the database name, username and password
+spreg_db_name: "spreg_db_name"
+spreg_db_username: "spreg_user"
+spreg_db_password: "spreg_passwd"
+
+# Yubikey server id and key, get a new pair for each machine at https://upgrade.yubico.com/getapikey/
+spreg_yubikey_id: "48695"
+spreg_yubikey_key: "jGAqANjXDwthsKp0dnboFGmZ5ag="
+spreg_yubikey_lognames: [ 'tesla', 'einstein' ]
+spreg_sudo_root_lognames: [ 'tesla' ]
+
+# users for Yubikeys
+spreg_yubikey_users:
+  tesla:
+    name: Nikola Tesla
+    yubikeys:
+      - ccccccefghij
+    sshkeys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDe9Rb2N5aq5qYAi8OCeQKlpOBJi/Ll2tlxqiD7Gan7wJrFBbrZIj8a5tOpHKTm61ldihxG7hnXkyEvbAX5vx/6lLagKaLFL3ysh3iH3ZxiXFYXfLklqrrCK2kuwdCIasMF4kJYzS/goLEGeqBkeJN8SvTj2THvzWcvsTZXIgXygzqiiSKlJao2v62EZv3Pi0eP8KhLrdYW2EcePBOKclLGYxdAX0k9KMJHJRecQhS2BtDLDL1rGoCCrw3Pd8689xovzYKC/ATnTZ89slA9HlrKyQjkjVeBX7WbRsjrgYKEDeqWZbdzjT9Nhg/Ftewbqh2V6p8OFQTftKUOmmPXlwAr
+  einstein:
+    name: Albert Einstein
+    yubikeys:
+      - ccccccghijkl
+    sshkeys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQiusTXxPGdXXzhHyU9wEb1i5PAdN/qBX8lVw90/yZo6LKBl+fO2QuRTQUxxRgk05puXYwWMF4IheoVBmWFzwClyH/Ox88Yq+WM4nGxIpzvoyUZQ0rRM7a0LfaLvDsJpkoMOr53LFfQtdTY7ZiKXsaTI1EmhHXVmfgFXDTu4IE2EBGUrKPj28+yD/5UuyybA/TfZJ6wW51M0QAaQy3n2xWY+K+aFfTJv2vQin2cIjIPMWfUoUCR2eYNbtZ/uHwXgJxK1W3PeeJhLjW8RXdfLiSOA3+8X5NCHGBs5BLdvieQjB0SYb0NqCc7scAlJV14MGlWdBYuczV2gvn2mnT4q3F
+
+
+# Password for root user
+spreg_mariadb_root_password: "root_passwd"
+
+# Path to cert dir
+spreg_certs_dir: "/etc/ssl/certs"
+
+# Entity Id of identity provider
+spreg_idp_entity_id: "https://idp.example.com/idp"
+
+# Url to metadata of identity provider
+spreg_shibboleth_template_metadata_url: "http://federation.org/federation-metadata.xml"
+
+########################################################
+## Configuration for Apache2 spreg-ssl template       ##
+########################################################
+
+# Specify paths certificate and key
+spreg_apache_template_ssl_certificate_file_path: ""
+spreg_apache_template_ssl_certificate_key_path: ""
+spreg_apache_template_ssl_certificate_chain_path: ""
+
+
+########################################################
+## Configuration for SPReg appconfig template         ##
+########################################################
+
+# List of Admin's userIds
+spreg_template_appconfig_admins: []
+
+# Specify if OIDC services are enabled or not
+spreg_template_appconfig_oidc_enabled: true
+
+# Specify list of available languages
+spreg_template_appconfig_languages: "{{ spreg_available_languages }}"
+
+# Specify the host url
+spreg_template_appconfig_host_url: ""
+
+# Specify the secret (the random string which will be used for generating codes)
+spreg_template_appconfig_secret: ""
+
+# Specify the 'proxyIdentifier' perun attr name
+spreg_template_appconfig_proxyidentifier_attrname: ""
+
+# Specify the 'masterProxyIdentifier' perun attr name
+spreg_template_appconfig_masterproxyidentifier_attrname: ""
+
+# Specify the 'isTestSp' perun attr name
+spreg_template_appconfig_testsp_attrname: ""
+
+# Specify the 'isSamlSp' perun attr name
+spreg_template_appconfig_issamlsp_attrname: ""
+
+# Specify the 'isOidcSp' perun attr name
+spreg_template_appconfig_isoidcsp_attrname: ""
+
+# Specify the 'showOnServiceList' perun attr name
+spreg_template_appconfig_showonservicelist_attrname: ""
+
+# Specify the 'administrationContact' perun attr name
+spreg_template_appconfig_admincontact_attrname: ""
+
+# Specify the user 'preferredMail' perun attr name
+spreg_template_appconfig_usermail_attrname: ""
+
+# Specify the facility 'entityId' perun attr name
+spreg_template_appconfig_entityid_attrname: ""
+
+# Specify the 'oidcClientId' perun attr name
+# REQUIRED only if spreg_template_appconfig_oidc_enabled is true
+spreg_template_appconfig_oidcclientid_attrname: ""
+
+# Specify the 'oidcClientSecret' perun attr name
+# REQUIRED only if spreg_template_appconfig_oidc_enabled is true
+spreg_template_appconfig_oidcclientsecret_attrname: ""
+
+# False if user is not given an option to fill emails of persons who should sign the approval
+spreg_template_appconfig_approval_allowspecifymails: true
+
+# List of emails that should be used when user does not fill the emails for approval
+spreg_template_appconfig_approval_defaultauthorities: []
+
+# Specify title and logo
+spreg_template_appconfig_header_title: "Service provider registration"
+spreg_template_appconfig_header_logo: ""
+spreg_template_appconfig_header_html: ""
+
+# Specify the URL to PerunRPC and username/password to connection
+spreg_template_appconfig_perunrpc_url: ""
+spreg_template_appconfig_perunrpc_username: ""
+spreg_template_appconfig_perunrpc_password: ""
+
+#######################################################################
+## Configuration for SPReg mail template                             ##
+## These tags are allowed:                                           ##
+## %REQUEST_ID% - will be replaced by ID of request                  ##
+## %NEW_STATUS% - will be replaced by new status of request          ##
+## %APPROVAL_LINK% - will be replaced by link for request approval   ##
+## %USER_INFO% - will be replaced by information about user (name)   ##
+#######################################################################
+
+# Specify the list of application administrator emails
+spreg_template_mail_emails: []
+
+# Specify SMTP host for sending mails
+spreg_template_mail_smtphost: "{{ spreg_server_name }}"
+
+# Specify message FROM field
+spreg_template_mail_from: "{{ spreg_email_address }}"
+
+# Specify the foter of the messages
+spreg_template_mail_footer: "<br/><br/>Best regards, <br/> {{ spreg_template_mail_from }} <br/> service registration"
+
+# Subject of message when notification is sent to user about created request
+spreg_template_mail_create_user_subject: "Created service registration request %REQUEST_ID%"
+
+# Message body when notification is sent to user about created request
+spreg_template_mail_create_user_message: "Your request for registering the service %SERVICE_NAME% has been created with id: %REQUEST_ID%"
+
+# Subject of message when notification is sent to admin about created request
+spreg_template_mail_create_admin_subject: "Created service registration request %REQUEST_ID%"
+
+# Message body when notification is sent to admin about created request
+spreg_template_mail_create_admin_message: "New request for registering the service %SERVICE_NAME% has been created with id: %REQUEST_ID%"
+
+# Subject of message when notification is sent to user about updated request
+spreg_template_mail_update_user_subject: "Updated request %REQUEST_ID%"
+
+# Message body when notification is sent to user about updated request
+spreg_template_mail_update_user_message: "Request for the service %SERVICE_NAME% has been updated."
+
+# Subject of message when notification is sent to admin about updated request
+spreg_template_mail_update_admin_subject: "Updated request %REQUEST_ID%"
+
+# Message body when notification is sent to admin about created request
+spreg_template_mail_update_admin_message: "Request for the service %SERVICE_NAME% has been updated."
+
+# Subject of message when notification is sent to user about updated request
+spreg_template_mail_status_updated_subject: "Updated status of request %REQUEST_ID%"
+
+# Message body when notification is sent to user about updated request
+spreg_template_mail_status_updated_message: "Status has been updated to %NEW_STATUS%"
+
+# Subject of message when notification is sent to user about signed request to move SP to production
+spreg_template_mail_signed_user_subject: "Approved transfer to production: %SERVICE_NAME%"
+
+#Message body of message when notification is sent to user about signed request to move SP to production
+spreg_template_mail_signed_user_message: "Transfer of service: %SERVICE_NAME% to Production was approved."
+
+# Subject of message when notification is sent to admin about signed request to move SP to production
+spreg_template_mail_signed_admin_subject: "Approved transfer to production: %SERVICE_NAME%"
+
+# Message body of message when notification is sent to admin about signed request to move SP to production
+spreg_template_mail_signed_admin_message: "Transfer of service: %SERVICE_NAME% to Production was approved."
+
+# Subject of message when notification is sent to authority when moving to production has been requested
+spreg_template_mail_production_authorities_subject: "New request for approval %REQUEST_ID%"
+
+# Message body when notification is sent to authority when moving to production has been requested
+spreg_template_mail_production_authorities_message: "User %USER_INFO% has asked for approval of request %REQUEST_ID%"
+
+# Subject of message when notification is sent to user when asked to become service administrator
+spreg_template_mail_admins_add_subject: "Approve request to become admin: %SERVICE_NAME%"
+
+# Message body when notification is sent to user when asked to become service administrator
+spreg_template_mail_admins_add_message: "For approval of becoming admin of %SERVICE_NAME% visit <a href=\"%APPROVAL_LINK%\">this link</a>"
+
+# Specify the configuration for mails for transferring to production
+# Example of structure:
+#  - mail: # Email
+#    text: # Displayed text
+spreg_template_prod_transfer_authorities_mails: []
+
+# Specify the all attributes
+# Example of structure:
+#  - attributeId:  # AttributeIdentifier - REQUIRED
+#       attrName: # Perun attribute identifier - REQUIRED
+#       name: - REQUIRED
+#         - cs: # Name in CS lang
+#         - en: # Name in EN lang
+#       description: REQUIRED
+#         - cs: # Description in CS lang
+#         - en: # Description in EN lang
+#       allowed_keys: # List of keys - REQUIRED ONLY ON ATTRIBUTES WITH TYPE MAP
+#         - cs
+#         - en
+#       allowed_values: # List of available values - OPTIONAL
+#       regex: "a" # Regular expresison which will be applied on input - OPTIONAL
+#       displayed: true # Specify if input will be displayed - OPTIONAL - Default value is true
+#       editable: true # Specify if input will be editable - OPTIONAL - Default value is true
+#       required: true # Specify if attribute is required - OPTIONAL - Default value is true
+#   - attributeId2:  # AttributeIdentifier - REQUIRED
+#       attrName: # Perun attribute identifier - REQUIRED
+#       name: - REQUIRED
+#         - cs: # Name in CS lang
+#         - en: # Name in EN lang
+#       description: REQUIRED
+#         - cs: # Description in CS lang
+#         - en: # Description in EN lang
+spreg_template_all_attrs: []
+
+# List of attributes Ids of attributes defined in accessControl.properties
+spreg_template_attrs_access_control_inputs: []
+
+# List of attributes Ids of attributes defined in oidc.properties
+spreg_template_attrs_oidc_inputs: []
+
+# List of attributes Ids of attributes defined in organization.properties
+spreg_template_attrs_organization_inputs: []
+
+# List of attributes Ids of attributes defined in saml.properties
+spreg_template_attrs_saml_inputs: []
+
+# List of attributes Ids of attributes defined in service.properties
+spreg_template_attrs_service_inputs: []
+
+##############################################
+##############################################
+##  You do not need to modify values below  ##
+##############################################
+##############################################
+
+# Server context path
+spreg_context_path: "/spreg"
+
+# email alias for root
+spreg_root_email_address: "{{ spreg_email_address }}"
+
+# Firewall settings for ssh
+spreg_firewall_open_ssh_ports:
+  - { port: "ssh", ipv4: "147.251.0.0/16", comment: "accept ssh from MUNI" }
+  - { port: "ssh", ipv4: "78.128.208.0/20", comment: "accept ssh from CESNET" }
+  - { port: "ssh", ipv4: "195.113.0.0/16", comment: "accept ssh from CESNET" }
+  - { port: "ssh", ipv6: "2001:718::/32", comment: "accept ssh from CESNET provider" }
+
+# Firewall settings
+spreg_firewall_open_tcp_ports:
+  - { port: 80, comment: "Allow http" }
+  - { port: 443, comment: "Allow https" }
+
+# debian repos to use for automatic updates
+spreg_unattended_upgrades_origin_patterns: |2
+             "origin=Debian,codename=${distro_codename}";
+             "origin=Debian,codename=${distro_codename}-updates";
+             "origin=meta@cesnet.cz,a=stable";
+
+spreg_unattended_upgrades_blacklist: []
+
+spreg_sudo_perun_lognames: []
+
+# List of packages to install
+spreg_monitoring_check_mk_packages:
+  - check-mk-agent
+  - check-mk-agent-logwatch
+  - check-mk-agent-meta-checks
+  - check-mk-agent-meta-key
+  - time
+
+# List of files which will be copied to /usr/lib/check_mk_agent/local/
+spreg_monitoring_check_mk_local_scripts_by_template:
+  - service_running.sh
+
+# List of templates for files in /usr/lib/check_mk_agent/local/
+spreg_monitoring_check_mk_local_scripts_file: []
+
+# List of files which will be copied to /usr/lib/check_mk_agent/plugins/
+spreg_monitoring_check_mk_plugins_by_template: []
+
+# List of templates for files in /usr/lib/check_mk_agent/plugins/
+spreg_monitoring_check_mk_plugins_file: []
+
+# List of monitoring services
+# This option is only for 'service_running.sh.jinja2' template
+monitoring_template_service_running_check_services:
+  - tomcat9
+  - apache2
+  - shibd
+  - sendmail
+  - mariadb
+
+# List of relays which will be defined in sendmail
+spreg_sendmail_relays:
+  - relay.muni.cz
+
+# List of databases which will be created
+spreg_mariadb_databases_to_create:
+  - spreg
+
+# Structure of script's which will be run on database
+# Example of structure:
+# mariadb_scripts:
+#   - script: script1
+#     database: dbname1
+#   - script: script2
+#     database: dbname1
+spreg_mariadb_scripts:
+  - script: mysql_scheme
+    database: "{{ spreg_db_name }}"
+
+# Structure of user's login and password
+# Example of structure:
+# mariadb_users_to_create:
+#   - login: user1
+#     password: password1
+#   - login: user2
+#     password: password2
+spreg_mariadb_users_to_create:
+  - login: "{{ spreg_db_username }}"
+    password: "{{ spreg_db_password }}"
+
+# Structure od user's login and list of privileges
+# Example of structure:
+# mariadb_users_privileges:
+#   - login: user1
+#     privileges:
+#       - "dbname1.*:ALL"
+#       - "dbname2.*:ALL"
+#   - login: user2
+#     privileges:
+#       - "dbname1.*:ALL"
+spreg_mariadb_users_privileges:
+  - login: "{{ spreg_db_username }}"
+    privileges:
+      - "{{ spreg_db_name }}.*:ALL"
+
+
+spreg_shibboleth_hostname: "https://{{ spreg_server_name }}"
+spreg_shibboleth_sp_entity_id: "https://{{ spreg_server_name }}/sp/"
+
+# Shibboleth default templates configuration
+spreg_shibboleth_template_attribute_map_allow_urn_oid_attributes: true
+spreg_shibboleth_template_attribute_map_allow_urn_mace_attributes: false
+spreg_shibboleth_template_attribute_map_allow_schac_attributes: false
+spreg_shibboleth_template_attribute_map_custom_attributes:
+  - id: epuid
+    name: urn:oid:1.3.6.1.4.1.5923.1.1.1.13
+    comment: eduPersonUniqueId
+    decoder:
+      type: ScopedAttributeDecoder
+spreg_shibboleth_template_sp_entity_id: "{{ spreg_shibboleth_sp_entity_id }}"
+spreg_shibboleth_template_remote_users:
+  - epuid
+  - eppn
+spreg_shibboleth_template_attribute_prefix: "AJP_"
+spreg_shibboleth_template_idp_entity_id: "{{ spreg_idp_entity_id }}"
+spreg_shibboleth_template_metadata_backup_file: "metadata.xml"
+
+# List of packages which will be installed
+spreg_apache_packages:
+  - apache2
+  - libapache2-mod-shib2
+
+# List of apache2 modules which will be enabled
+spreg_apache_modules:
+  - socache_shmcb.load
+  - ssl.load
+  - ssl.conf
+  - shib.load
+  - headers.load
+  - rewrite.load
+  - proxy.load
+  - proxy_ajp.load
+  - proxy_http.load
+
+# List of sites for remove
+spreg_apache_remove_sites:
+  - 000-default.conf
+  - default-ssl.conf
+
+# List of sites which will be copied from templates
+spreg_apache_create_sites:
+  - sites-available/spreg.conf
+  - sites-available/spreg-ssl.conf
+
+# List of sites which will be enabled
+spreg_apache_enable_sites:
+  - spreg.conf
+  - spreg-ssl.conf
+
+spreg_apache_template_server_name: "{{ spreg_server_name }}"
+spreg_apache_template_server_alias: "{{ spreg_server_name }}"
+spreg_apache_template_server_admin_mail: "{{ spreg_email_address }}"
+spreg_apache_template_document_root: "/var/www/html"
+spreg_apache_template_ssl_certificate_path: "{{ spreg_certs_dir }}"
+
+# Git repository URL
+spreg_repository_URL: "https://github.com/CESNET/perun-spRegistration-app"
+
+# Path to destination directory where will be cloned git repository
+spreg_source_code_dest: "/tmp/spreg-app"
+
+# Branch / Tag which will be used as source
+spreg_source_code_version: "master"
+
+# Path to directory, where will be every configuration file for spreg application
+spreg_config_destionation: "/etc/perun-spRegistration"
+
+spreg_list_of_configuration_files:
+  - appConfig.properties
+  - mail.properties
+  - prodTransferAuthoritiesMails.properties
+  - attrs/access_control.properties
+  - attrs/oidc.properties
+  - attrs/organization.properties
+  - attrs/saml.properties
+  - attrs/service.properties
+
+spreg_template_appconfig_confirmperiod_days: 30
+spreg_template_appconfig_confirmperiod_hours: 0
+spreg_template_appconfig_jdbc_driver: "com.mysql.cj.jdbc.Driver"
+spreg_template_appconfig_jdbc_url: "jdbc:mysql://localhost:3306/{{ spreg_db_name }}?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
+spreg_template_appconfig_jdbc_username: "{{ spreg_db_username }}"
+spreg_template_appconfig_jdbc_password: "{{ spreg_db_password }}"
+
+spreg_template_appconfig_entityid: "{{ spreg_idp_entity_id }}"
+# Specify the 'masterProxyIdentifier' attr value
+spreg_template_appconfig_masterproxyidentifier_attrvalue: "{{ spreg_idp_entity_id }}"
+# Specify the 'proxyIdentifier' attr value
+spreg_template_appconfig_proxyidentifier_attrvalue: "{{ spreg_idp_entity_id }}"
