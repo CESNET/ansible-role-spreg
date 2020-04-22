@@ -5,10 +5,10 @@
 ## Configuration for mails for transferring to production. User can select ##
 ## from list provided in this file.                                        ##
 ## ----------------------------------------------------------------------- ##
-## format: email=displayedText                                             ##
-## example: edu@somewhere.com=EDU SOMEWHERE                                ##
+## format: displayedText=email,email2                                      ##
+## example: EDU SOMEWHERE=edu1@somewhere.edu,edu2@somewhere.edu            ##
 #############################################################################
 
 {% for item in spreg_template_prod_transfer_authorities_mails %}
-{{ item.mail }}={{ item.text}}
+{{ item.text }}={{ item.mails|join(',') }}
 {% endfor %}
