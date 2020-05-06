@@ -115,6 +115,12 @@ spreg_template_appconfig_oidcclientid_attrname: ""
 # REQUIRED only if spreg_template_appconfig_oidc_enabled is true
 spreg_template_appconfig_oidcclientsecret_attrname: ""
 
+# Specify the 'serviceName' perun attr name
+spreg_template_appconfig_servicename_attrname: ""
+
+# Specify the 'serviceDescription' perun attr name
+spreg_template_appconfig_servicedescription_attrname: ""
+
 # False if user is not given an option to fill emails of persons who should sign the approval
 spreg_template_appconfig_approval_allowspecifymails: false
 
@@ -143,6 +149,8 @@ spreg_template_appconfig_perunrpc_password: ""
 ## %CS_ACTION% - will be replaced by action of request (CS)                       ##
 ## %REQUEST_DETAIL_LINK% - will be replaced by the link to request detail         ##
 ## %APPROVAL_LINK% - will be replaced by link for request approval                ##
+## %INVITER_NAME% - will be replaced with the name of user who sent an invitaton  ##
+## %INVITER_EMAIL% - will be replaced with the email of user sending an invitaton ##
 ####################################################################################
 
 # Specify host for sending mails
