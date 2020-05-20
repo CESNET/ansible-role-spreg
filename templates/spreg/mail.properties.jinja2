@@ -1,26 +1,28 @@
-####################################################################################
-##                                                                                ##
-##                         MANAGED BY ANSIBLE                                     ##
-##                                                                                ##
-## Messages configuration template. Contains all of the available options         ##
-## for configuring the email notifications sent by the application.               ##
-## notice: for newLine use &lt;br/&gt;                                            ##
-## notice: for undefined use @null                                                ##
-## ------------------------------------------------------------------------------ ##
-## Configuration for SPReg mail template                                          ##
-## These tags are allowed:                                                        ##
-## %REQUEST_ID% - will be replaced by ID of request                               ##
-## %EN_SERVICE_NAME% - will be replaced by the name of service (EN)               ##
-## %CS_SERVICE_NAME% - will be replaced by the name of service (CS)               ##
-## %EN_SERVICE_DESCRIPTION% - will be replaced by the description of service (EN) ##
-## %CS_SERVICE_DESCRIPTION% - will be replaced by the description of service (CS) ##
-## %EN_NEW_STATUS% - will be replaced by new status of request (EN)               ##
-## %CS_NEW_STATUS% - will be replaced by new status of request (CS)               ##
-## %EN_ACTION% - will be replaced by action of request (EN)                       ##
-## %CS_ACTION% - will be replaced by action of request (CS)                       ##
-## %REQUEST_DETAIL_LINK% - will be replaced by the link to request detail         ##
-## %APPROVAL_LINK% - will be replaced by link for request approval                ##
-####################################################################################
+#####################################################################################
+##                                                                                 ##
+##                         MANAGED BY ANSIBLE                                      ##
+##                                                                                 ##
+## Messages configuration template. Contains all of the available options          ##
+## for configuring the email notifications sent by the application.                ##
+## notice: for newLine use &lt;br/&gt;                                             ##
+## notice: for undefined use @null                                                 ##
+## ------------------------------------------------------------------------------- ##
+## Configuration for SPReg mail template                                           ##
+## These tags are allowed:                                                         ##
+## %REQUEST_ID% - will be replaced by ID of request                                ##
+## %EN_SERVICE_NAME% - will be replaced by the name of service (EN)                ##
+## %CS_SERVICE_NAME% - will be replaced by the name of service (CS)                ##
+## %EN_SERVICE_DESCRIPTION% - will be replaced by the description of service (EN)  ##
+## %CS_SERVICE_DESCRIPTION% - will be replaced by the description of service (CS)  ##
+## %EN_NEW_STATUS% - will be replaced by new status of request (EN)                ##
+## %CS_NEW_STATUS% - will be replaced by new status of request (CS)                ##
+## %EN_ACTION% - will be replaced by action of request (EN)                        ##
+## %CS_ACTION% - will be replaced by action of request (CS)                        ##
+## %REQUEST_DETAIL_LINK% - will be replaced by the link to request detail          ##
+## %APPROVAL_LINK% - will be replaced by link for request approval                 ##
+## %INVITER_NAME% - will be replaced with the name of user sending the invitation  ##
+## %INVITER_EMAIL% - will be replaced with the email of user sendin the invitation ##
+#####################################################################################
 
 # Host configuration
 mail.host={{ spreg_template_mail_host }}
@@ -86,7 +88,7 @@ signed.user.message.cs={{ spreg_template_mail_signed_user_message_cs }}
 
 # Message for app admin when request for transfer has been signed by authority
 signed.admin.subject.en={{ spreg_template_mail_signed_admin_subject_en }}
-signed.admin.subject.cs={{ spreg_template_mail_signed_admin_subject_cs }}
+signed.admin.subject.cs={{ spreg_template_mail_signed_admin_subject_en }}
 signed.admin.message.en={{ spreg_template_mail_signed_admin_message_en }}
 signed.admin.message.cs={{ spreg_template_mail_signed_admin_message_cs }}
 
@@ -101,3 +103,9 @@ admins.add.subject.en={{ spreg_template_mail_admins_add_subject_en }}
 admins.add.subject.cs={{ spreg_template_mail_admins_add_subject_cs }}
 admins.add.message.en={{ spreg_template_mail_admins_add_message_en }}
 admins.add.message.cs={{ spreg_template_mail_admins_add_message_cs }}
+
+# Message for user when client_secret has changed
+client.secret.changed.subject.en={{ spreg_template_mail_client_secret_changed_subject_en }}
+client.secret.changed.subject.cs={{ spreg_template_mail_client_secret_changed_subject_cs }}
+client.secret.changed.message.en={{ spreg_template_mail_client_secret_changed_message_en }}
+client.secret.changed.message.cs={{ spreg_template_mail_client_secret_changed_message_cs }}
