@@ -1,7 +1,7 @@
 ---
 - name: "SPreg - Prepare mainfolder for configuration"
   file:
-    path: "{{ spreg_config_destionation }}"
+    path: "{{ spreg_config_destination }}"
     state: directory
   tags:
     - configuration
@@ -11,14 +11,14 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ spreg_config_destionation }}/attrs"
+    - "{{ spreg_config_destination }}/attrs"
   tags:
     - configuration
 
 - name: "Spreg - Copy configuration files"
   template:
     src: "templates/spreg/{{ item }}.jinja2"
-    dest: "{{ spreg_config_destionation }}/{{ item }}"
+    dest: "{{ spreg_config_destination }}/{{ item }}"
     backup: yes
   loop: "{{ spreg_list_of_configuration_files }}"
   notify: "restart tomcat"

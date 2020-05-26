@@ -24,6 +24,8 @@ availableLanguages={{ spreg_template_appconfig_languages|join(',') }}
 # URL of host where application runs
 host.url={{ spreg_template_appconfig_host_url }}
 
+logout.url={{ spreg_template_appconfig_logout_url }}
+
 # secret salt used for encryption of signature codes
 secret={{ spreg_template_appconfig_secret }}
 
@@ -70,6 +72,12 @@ attr.oidcClientId={{ spreg_template_appconfig_oidcclientid_attrname }}
 # attribute which contains oidc ClientSecret
 attr.oidcClientSecret={{ spreg_template_appconfig_oidcclientsecret_attrname }}
 
+# attribute which contains name of the service
+attr.serviceName={{ spreg_template_appconfig_servicename_attrname }}
+
+# attribute which contains description of the service
+attr.serviceDesc={{ spreg_template_appconfig_servicedescription_attrname }}
+
 ###########################
 ###      APPROVALS      ###
 ###########################
@@ -84,9 +92,6 @@ approval.confirmationPeriod.hours={{ spreg_template_appconfig_confirmperiod_hour
 # false if user is not given an option to fill emails of persons who should sign the approval
 approval.allowToSpecifyOwn={{ spreg_template_appconfig_approval_allowspecifymails }}
 
-# coma separated list of emails that should be used when user does not fill the emails for approval
-approval.defaultAuthorites.mails={{ spreg_template_appconfig_approval_defaultauthorities|join(',') }}
-
 ##########################
 ###      FRONTEND      ###
 ##########################
@@ -100,31 +105,22 @@ app.header.logo={{ spreg_template_appconfig_header_logo }}
 # HTML block header
 app.header.html={{ spreg_template_appconfig_header_html }}
 
+# HTML block footer
+app.footer.html={{ spreg_template_appconfig_footer_html}}
+
 ##########################
 ###      DATABASE      ###
 ##########################
 
-# driver used for connection
 jdbc.driver={{ spreg_template_appconfig_jdbc_driver }}
-
-# URL for connecting to the database
 jdbc.url={{ spreg_template_appconfig_jdbc_url }}
-
-# username for the database
 jdbc.username={{ spreg_template_appconfig_jdbc_username }}
-
-# password for the database
 jdbc.password={{ spreg_template_appconfig_jdbc_password }}
 
 ###########################
 ###      PERUN RPC      ###
 ###########################
 
-# URL of Perun RPC without last slash (i.e. https://perun-dev.cesnet.cz/ba/rpc)
 rpc.url={{ spreg_template_appconfig_perunrpc_url }}
-
-# username used for Perun authentication while calling RPC
 rpc.user={{ spreg_template_appconfig_perunrpc_username }}
-
-# password used for Perun authentication while calling RPC
 rpc.password={{ spreg_template_appconfig_perunrpc_password }}

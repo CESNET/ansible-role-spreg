@@ -202,7 +202,7 @@ Ansible role for installing application for registration SPs
 * spreg_repository_URL - Git repository URL
 * spreg_source_code_dest - Path to destination directory where will be cloned git repository
 * spreg_source_code_version - Branch / Tag which will be used as source
-* spreg_config_destionation - Path to directory, where will be every configuration file for spreg application
+* spreg_config_destination - Path to directory, where will be every configuration file for spreg application
 * spreg_template_appconfig_confirmperiod_days - Confirmation limit in days
 * spreg_template_appconfig_confirmperiod_hours - Confirmation limit in hours
 * spreg_template_appconfig_jdbc_driver - JDBC driver

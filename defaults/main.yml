@@ -10,7 +10,7 @@ spreg_server_name: "spreg.aai.example.com"
 
 # List of available languages
 # For example ['cs', 'en']
-spreg_available_languages: []
+spreg_available_languages: [ 'en' ]
 
 # Specify the database name, username and password
 spreg_db_name: "spreg_db_name"
@@ -115,101 +115,177 @@ spreg_template_appconfig_oidcclientid_attrname: ""
 # REQUIRED only if spreg_template_appconfig_oidc_enabled is true
 spreg_template_appconfig_oidcclientsecret_attrname: ""
 
+# Specify the 'serviceName' perun attr name
+spreg_template_appconfig_servicename_attrname: ""
+
+# Specify the 'serviceDescription' perun attr name
+spreg_template_appconfig_servicedescription_attrname: ""
+
 # False if user is not given an option to fill emails of persons who should sign the approval
-spreg_template_appconfig_approval_allowspecifymails: true
+spreg_template_appconfig_approval_allowspecifymails: false
 
-# List of emails that should be used when user does not fill the emails for approval
-spreg_template_appconfig_approval_defaultauthorities: []
-
-# Specify title and logo
+# Specify frontend properties
 spreg_template_appconfig_header_title: "Service provider registration"
 spreg_template_appconfig_header_logo: ""
 spreg_template_appconfig_header_html: ""
+spreg_template_appconfig_footer_html: ""
 
-# Specify the URL to PerunRPC and username/password to connection
+# Specify the URL to PerunRPC and username/password
 spreg_template_appconfig_perunrpc_url: ""
 spreg_template_appconfig_perunrpc_username: ""
 spreg_template_appconfig_perunrpc_password: ""
 
-#######################################################################
-## Configuration for SPReg mail template                             ##
-## These tags are allowed:                                           ##
-## %REQUEST_ID% - will be replaced by ID of request                  ##
-## %NEW_STATUS% - will be replaced by new status of request          ##
-## %APPROVAL_LINK% - will be replaced by link for request approval   ##
-## %USER_INFO% - will be replaced by information about user (name)   ##
-#######################################################################
+####################################################################################
+## Configuration for SPReg mail template                                          ##
+## These tags are allowed:                                                        ##
+## %REQUEST_ID% - will be replaced by ID of request                               ##
+## %EN_SERVICE_NAME% - will be replaced by the name of service (EN)               ##
+## %CS_SERVICE_NAME% - will be replaced by the name of service (CS)               ##
+## %EN_SERVICE_DESCRIPTION% - will be replaced by the description of service (EN) ##
+## %CS_SERVICE_DESCRIPTION% - will be replaced by the description of service (CS) ##
+## %EN_NEW_STATUS% - will be replaced by new status of request (EN)               ##
+## %CS_NEW_STATUS% - will be replaced by new status of request (CS)               ##
+## %EN_ACTION% - will be replaced by action of request (EN)                       ##
+## %CS_ACTION% - will be replaced by action of request (CS)                       ##
+## %REQUEST_DETAIL_LINK% - will be replaced by the link to request detail         ##
+## %APPROVAL_LINK% - will be replaced by link for request approval                ##
+## %INVITER_NAME% - will be replaced with the name of user who sent an invitaton  ##
+## %INVITER_EMAIL% - will be replaced with the email of user sending an invitaton ##
+####################################################################################
+
+# Specify host for sending mails
+spreg_template_mail_host: "{{ spreg_server_name }}"
+
+# Specify host port for sending mails
+spreg_template_mail_port: 25
+
+# Specify host protocol for sending mails
+spreg_template_mail_protocol: "smtp"
+
+# Specify host username for sending mails
+spreg_template_mail_auth_username: "@null"
+
+# Specify host password for sending mails
+spreg_template_mail_auth_password: "@null"
+
+# Specify host SMTP authorization enabled
+spreg_template_mail_smtp_auth: false
+
+# Specify host SMTP STARTTLS enabled
+spreg_template_mail_smtp_starttls_enabled: false
+
+# Specify host SMTP connection timeout
+spreg_template_mail_smtp_connectiontimeout: 3000
+
+# Specify host SMTP timeout
+spreg_template_mail_smtp_timeout: 5000
+
+# Specify host SMTP write timeout
+spreg_template_mail_smtp_writetimeout: 3000
+
+# Specify host SMTP debug messages enabled
+spreg_template_mail_smtp_debug: false
 
 # Specify the list of application administrator emails
-spreg_template_mail_emails: []
+spreg_template_mail_app_admin_emails: []
 
-# Specify SMTP host for sending mails
-spreg_template_mail_smtphost: "{{ spreg_server_name }}"
+# List of emails that should be used when user does not fill the emails for approval
+spreg_template_appconfig_approval_defaultauthorities: []
 
 # Specify message FROM field
 spreg_template_mail_from: "{{ spreg_email_address }}"
 
 # Specify the foter of the messages
-spreg_template_mail_footer: "<br/><br/>Best regards, <br/> {{ spreg_template_mail_from }} <br/> service registration"
+spreg_template_mail_footer: "Best regards, <br/> <a href=\"mailto:{{ spreg_template_mail_from }}\">{{ spreg_template_mail_from }}</a><br/>Service Provider Registration"
+
+# Specify prefix for mail subject
+spreg_template_mail_subject_prefix: "SPREG: "
 
 # Subject of message when notification is sent to user about created request
-spreg_template_mail_create_user_subject: "Created service registration request %REQUEST_ID%"
+spreg_template_mail_create_user_subject_en: "Created service registration request %REQUEST_ID%"
+spreg_template_mail_create_user_subject_cs: "@null"
 
 # Message body when notification is sent to user about created request
-spreg_template_mail_create_user_message: "Your request for registering the service %SERVICE_NAME% has been created with id: %REQUEST_ID%"
+spreg_template_mail_create_user_message_en: "Your request for registering the service %EN_SERVICE_NAME% has been created with id: %REQUEST_ID%"
+spreg_template_mail_create_user_message_cs: "@null"
 
 # Subject of message when notification is sent to admin about created request
-spreg_template_mail_create_admin_subject: "Created service registration request %REQUEST_ID%"
+spreg_template_mail_create_admin_subject_en: "Created service registration request %REQUEST_ID%"
+spreg_template_mail_create_admin_subject_cs: "@null"
 
 # Message body when notification is sent to admin about created request
-spreg_template_mail_create_admin_message: "New request for registering the service %SERVICE_NAME% has been created with id: %REQUEST_ID%"
+spreg_template_mail_create_admin_message_en: "New request for registering the service %EN_SERVICE_NAME% has been created with id: %REQUEST_ID%"
+spreg_template_mail_create_admin_message_cs: "@null"
 
 # Subject of message when notification is sent to user about updated request
-spreg_template_mail_update_user_subject: "Updated request %REQUEST_ID%"
+spreg_template_mail_update_user_subject_en: "Updated request %REQUEST_ID%"
+spreg_template_mail_update_user_subject_cs: "@null"
 
 # Message body when notification is sent to user about updated request
-spreg_template_mail_update_user_message: "Request for the service %SERVICE_NAME% has been updated."
+spreg_template_mail_update_user_message_en: "Request for the service %EN_SERVICE_NAME% has been updated."
+spreg_template_mail_update_user_message_cs: "@null"
 
 # Subject of message when notification is sent to admin about updated request
-spreg_template_mail_update_admin_subject: "Updated request %REQUEST_ID%"
+spreg_template_mail_update_admin_subject_en: "Updated request %REQUEST_ID%"
+spreg_template_mail_update_admin_subject_cs: "@null"
 
 # Message body when notification is sent to admin about created request
-spreg_template_mail_update_admin_message: "Request for the service %SERVICE_NAME% has been updated."
+spreg_template_mail_update_admin_message_en: "Request for the service %EN_SERVICE_NAME% has been updated."
+spreg_template_mail_update_admin_message_cs: "@null"
 
 # Subject of message when notification is sent to user about updated request
-spreg_template_mail_status_updated_subject: "Updated status of request %REQUEST_ID%"
+spreg_template_mail_status_updated_subject_en: "Updated status of request %REQUEST_ID%"
+spreg_template_mail_status_updated_subject_cs: "@null"
 
 # Message body when notification is sent to user about updated request
-spreg_template_mail_status_updated_message: "Status has been updated to %NEW_STATUS%"
+spreg_template_mail_status_updated_message_en: "Status has been updated to %EN_NEW_STATUS%"
+spreg_template_mail_status_updated_message_cs: "@null"
 
 # Subject of message when notification is sent to user about signed request to move SP to production
-spreg_template_mail_signed_user_subject: "Approved transfer to production: %SERVICE_NAME%"
+spreg_template_mail_signed_user_subject_en: "Approved transfer to production: %EN_SERVICE_NAME%"
+spreg_template_mail_signed_user_subject_cs: "@null"
 
 #Message body of message when notification is sent to user about signed request to move SP to production
-spreg_template_mail_signed_user_message: "Transfer of service: %SERVICE_NAME% to Production was approved."
+spreg_template_mail_signed_user_message_en: "Transfer of service: %EN_SERVICE_NAME% to Production was approved."
+spreg_template_mail_signed_user_message_cs: "@null"
 
 # Subject of message when notification is sent to admin about signed request to move SP to production
-spreg_template_mail_signed_admin_subject: "Approved transfer to production: %SERVICE_NAME%"
+spreg_template_mail_signed_admin_subject_en: "Approved transfer to production: %EN_SERVICE_NAME%"
+spreg_template_mail_signed_admin_subject_cs: "@null"
 
 # Message body of message when notification is sent to admin about signed request to move SP to production
-spreg_template_mail_signed_admin_message: "Transfer of service: %SERVICE_NAME% to Production was approved."
+spreg_template_mail_signed_admin_message_en: "Transfer of service: %EN_SERVICE_NAME% to Production was approved."
+spreg_template_mail_signed_admin_message_cs: "@null"
 
 # Subject of message when notification is sent to authority when moving to production has been requested
-spreg_template_mail_production_authorities_subject: "New request for approval %REQUEST_ID%"
+spreg_template_mail_production_authorities_subject_en: "New request for approval %REQUEST_ID%"
+spreg_template_mail_production_authorities_subject_cs: "@null"
 
 # Message body when notification is sent to authority when moving to production has been requested
-spreg_template_mail_production_authorities_message: "User %USER_INFO% has asked for approval of request %REQUEST_ID%"
+spreg_template_mail_production_authorities_message_en: "User %USER_INFO% has asked for approval of request %REQUEST_ID%"
+spreg_template_mail_production_authorities_message_cs: "@null"
 
 # Subject of message when notification is sent to user when asked to become service administrator
-spreg_template_mail_admins_add_subject: "Approve request to become admin: %SERVICE_NAME%"
+spreg_template_mail_admins_add_subject_en: "Approve request to become admin: %EN_SERVICE_NAME%"
+spreg_template_mail_admins_add_subject_cs: "@null"
 
 # Message body when notification is sent to user when asked to become service administrator
-spreg_template_mail_admins_add_message: "For approval of becoming admin of %SERVICE_NAME% visit <a href=\"%APPROVAL_LINK%\">this link</a>"
+spreg_template_mail_admins_add_message_en: "For approval of becoming admin of %EN_SERVICE_NAME% visit <a href=\"%APPROVAL_LINK%\">this link</a>"
+spreg_template_mail_admins_add_message_cs: "@null"
+
+# Subject of message when notification is sent to user about the client_secret value changed
+spreg_template_mail_client_secret_changed_subject_en: "Client secret has been changed"
+spreg_template_mail_client_secret_changed_subject_cs: "@null"
+
+# Message body when notification is sent to user about the client_secret value changed
+spreg_template_mail_client_secret_changed_message_en: "Dear user,<br/>value of the client_secret for your service %EN_SERVICE_NAME% has been updated. Please find the new value in the details of your service."
+spreg_template_mail_client_secret_changed_message_cs: "@null"
+
 
 # Specify the configuration for mails for transferring to production
 # Example of structure:
-#  - mail: # Email
-#    text: # Displayed text
+#      text:   # Displayed text
+#    - mails:  # List of emails
 spreg_template_prod_transfer_authorities_mails: []
 
 # Specify the all attributes
@@ -434,7 +510,7 @@ spreg_source_code_dest: "/tmp/spreg-app"
 spreg_source_code_version: "master"
 
 # Path to directory, where will be every configuration file for spreg application
-spreg_config_destionation: "/etc/perun-spRegistration"
+spreg_config_destination: "/etc/perun-spRegistration"
 
 spreg_list_of_configuration_files:
   - appConfig.properties
