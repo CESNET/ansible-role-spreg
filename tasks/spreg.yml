@@ -12,7 +12,7 @@
 
 - name: "SPreg - Set working environment"
   import_role:
-    name: martin_kuba.work_env
+    name: cesnet.proxy_env
 
 - name: "SPreg - Set firewall"
   import_role:
