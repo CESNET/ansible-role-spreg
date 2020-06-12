@@ -67,6 +67,19 @@
     mariadb_users_privileges: "{{ spreg_mariadb_users_privileges }}"
     mariadb_scripts: "{{ spreg_mariadb_scripts }}"
 
+- name: "MARIADB_DATABASE_BACKUP - Copy backup script"
+  copy:
+    src: "backup_database.sh"
+    dest: "/root/backup_database.sh"
+    mode: 0700
+
+- name: "MARIADB_DATABASE_BACKUP - Set daily cron job"
+  cron:
+    name: "mariadb_database_backup"
+    special_time: daily
+    user: root
+    job: "/root/backup_database.sh > /dev/null 2>&1"
+
 - name: "SPreg - Install and configure Shibboleth"
   import_role:
     name: cesnet.shibboleth_sp
