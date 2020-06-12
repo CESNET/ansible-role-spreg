@@ -139,6 +139,7 @@ Ansible role for installing application for registration SPs
     "origin=meta@cesnet.cz,a=stable";
     ```
 * spreg_unattended_upgrades_blacklist - Blacklist for unattended upgrades
+* spreg_unattended_upgrades_mail_address - Mail address for unattended upgrades
 * spreg_monitoring_check_mk_packages - List of packages to install for monitoring
 * spreg_monitoring_check_mk_local_scripts_by_template - List of files which will be copied to /usr/lib/check_mk_agent/local/
 * spreg_monitoring_check_mk_local_scripts_file - List of templates for files in /usr/lib/check_mk_agent/local/
