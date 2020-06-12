@@ -367,6 +367,9 @@ spreg_unattended_upgrades_origin_patterns: |2
 
 spreg_unattended_upgrades_blacklist: []
 
+# Mail address for unattended upgrades
+spreg_unattended_upgrades_mail_address: "{{ spreg_root_email_address }}"
+
 spreg_sudo_perun_lognames: []
 
 # List of packages to install

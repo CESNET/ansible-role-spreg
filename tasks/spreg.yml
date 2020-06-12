@@ -27,7 +27,7 @@
   vars:
     unattended_upgrades_origin_patterns: "{{ spreg_unattended_upgrades_origin_patterns }}"
     unattended_upgrades_blacklist: "{{ spreg_unattended_upgrades_blacklist }}"
-    root_email_address: "{{ spreg_root_email_address }}"
+    root_email_address: "{{ spreg_unattended_upgrades_mail_address }}"
 
 - name: "SPreg - Set up Yubikeys"
   import_role:
