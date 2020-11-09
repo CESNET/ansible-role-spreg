@@ -1,0 +1,48 @@
+---
+
+###################################################################
+##                                                               ##
+##                     MANAGED BY ANSIBLE                        ##
+##                                                               ##
+##                   Inputs for OIDC services                    ##
+## ------------------------------------------------------------- ##
+###################################################################
+
+{% for attribute in spreg_app_attributes_oidc %}
+- name: "{{ attribute.name }}"
+  display_name:
+{%  for lang, name in attribute.display_name.items() %}
+    {{ lang }}: "{{ name }}"
+{%  endfor %}
+  description:
+{%  for lang, desc in attribute.description.items() %}
+    {{ lang }}: "{{ desc }}"
+{%  endfor %}
+{% if attribute.required is defined %}
+  required: {{ attribute.required }}
+{% else %}
+  required: True
+{% endif %}
+{% if attribute.displayed is defined %}
+  displayed: {{ attribute.displayed }}
+{% else %}
+  displayed: True
+{% endif %}
+{% if attribute.editable is defined %}
+  editable: {{ attribute.editable }}
+{% else %}
+  editable: True
+{% endif %}
+  type: "{{ attribute.type }}"
+  display_position: {{ loop.index }}
+{% if attribute.regex is defined %}
+  regex: "{{ attribute.regex }}"
+{% endif %}
+{% if attribute.allowed_keys is defined %}
+  allowed_values: {{ attribute.allowed_values }}
+{% endif %}
+{% if attribute.allowed_keys is defined %}
+  allowed_keys: {{ attribute.allowed_keys }}
+{% endif %}
+{% endfor %}
+

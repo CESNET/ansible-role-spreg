@@ -1,0 +1,106 @@
+---
+
+###################################################################################################
+##                                                                                               ##
+##                                  MANAGED BY ANSIBLE                                           ##
+##                                                                                               ##
+## Configuration template. Contains all of the available options for configuring the application ##
+###################################################################################################
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: {{ spreg_spring_profile_active }}
+
+server:
+  port: {{ spreg_app_server_port }}
+  servlet:
+    context-path: "{{ spreg_app_server_context_path }}"
+
+---
+
+spring:
+  profiles: {{ spreg_spring_profile_active }}
+
+dev.enabled: false
+
+connector:
+  rpc:
+    perun_url: "{{ spreg_app_perunrpc_url }}"
+    perun_user: "{{ spreg_app_perunrpc_username }}"
+    perun_password: "{{ spreg_app_perunrpc_password }}"
+    request_timeout: {{ spreg_app_perunrpc_request_timeout }}
+    connection_timeout: {{ spreg_app_perunrpc_connection_timeout }}
+    socket_timeout: {{ spreg_app_perunrpc_socket_timeout }}
+    max_connections: {{ spreg_app_perunrpc_max_connections }}
+    max_connections_per_route: {{ spreg_app_perunrpc_max_connections_per_route }}
+
+jdbc:
+  driver: "{{ spreg_app_jdbc_driver }}"
+  url: "{{ spreg_app_jdbc_url }}"
+  username: "{{ spreg_app_jdbc_username }}"
+  password: "{{ spreg_app_jdbc_password }}"
+
+application:
+  admin_ids: {{ spreg_app_app_admin_ids }}
+  protocols_enabled: {{ spreg_app_app_protocols_enabled }}
+  languages_enabled: {{ spreg_app_app_languages_enabled }}
+  proxy_identifier: "{{ spreg_app_app_proxy_identifier }}"
+  host_url: "{{ spreg_app_app_host_url }}"
+  logout_url: "{{ spreg_app_app_logout_url }}"
+  secret_key: "{{ spreg_app_app_secret_key }}"
+  mails_config_file_path: "{{ spreg_app_app_mails_config_file_path }}"
+  sp_managers_vo_id: {{ spreg_app_app_sp_managers_vo_id }}
+  sp_managers_parent_group_id: {{ spreg_app_app_sp_managers_parent_group_id }}
+
+attributes:
+  names:
+    user_email: "{{ spreg_app_attrs_names_user_email }}"
+    proxy_identifier: "{{ spreg_app_attrs_names_proxy_identifier }}"
+    master_proxy_identifier: "{{ spreg_app_attrs_names_master_proxy_identifier }}"
+    is_test_sp: "{{ spreg_app_attrs_names_is_test_sp }}"
+    show_on_service_list: "{{ spreg_app_attrs_names_show_on_service_list }}"
+    administrator_contact: "{{ spreg_app_attrs_names_administrator_contact }}"
+    oidc_client_id: "{{ spreg_app_attrs_names_oidc_client_id }}"
+    oidc_client_secret: "{{ spreg_app_attrs_names_oidc_client_secret }}"
+    entity_id: "{{ spreg_app_attrs_names_entity_id }}"
+    is_oidc: "{{ spreg_app_attrs_names_is_oidc }}"
+    is_saml: "{{ spreg_app_attrs_names_is_saml }}"
+    service_name: "{{ spreg_app_attrs_names_service_name }}"
+    service_desc: "{{ spreg_app_attrs_names_service_desc }}"
+    manager_group: "{{ spreg_app_attrs_names_manager_group }}"
+  values:
+    proxy_identifier: "{{ spreg_app_attrs_values_proxy_identifier }}"
+    master_proxy_identifier: "{{ spreg_app_attrs_values_master_proxy_identifier }}"
+
+inputs.config.paths:
+  service: "{{ spreg_app_input_config_file_paths_service }}"
+  organization: "{{ spreg_app_input_config_file_paths_organization }}"
+  saml: "{{ spreg_app_input_config_file_paths_saml }}"
+  oidc: "{{ spreg_app_input_config_file_paths_oidc }}"
+  access_control: "{{ spreg_app_input_config_file_paths_access_control }}"
+
+approvals:
+  confirmation_period:
+    days: {{ spreg_app_approvals_confirmation_period_days }}
+    hours: {{ spreg_app_approvals_confirmation_period_hours }}
+  admins_endpoint: "{{ spreg_app_approvals_admins_endpoint }}"
+  authorities_endpoint: "{{ spreg_app_approvals_authorities_endpoint }}"
+  transfer_authorities:
+    allow_input: {{ spreg_app_approvals_transfer_authorities_allow_input }}
+    default_entries: {{ spreg_app_approvals_transfer_authorities_default_entries }}
+{%  if spreg_app_approvals_transfer_authorities_allow_input %}
+    selection_entries: 
+{%    for item in spreg_app_approvals_transfer_authorities_selection_entries %}
+      - display_value: "{{ item.display_value }}"
+        emails: {{ item.emails }}
+{%    endfor   %}
+{%  endif %}
+
+frontend:
+  footer_html: "{{ spreg_app_frontend_footer_html }}"
+  header_html: "{{ spreg_app_frontend_header_html }}"
+  header_title: "{{ spreg_app_frontend_header_title }}" 
+  header_logo_url: "{{ spreg_app_frontend_header_logo }}"
+

@@ -1,0 +1,59 @@
+---
+
+#####################################################################################
+##                                                                                 ##
+##                         MANAGED BY ANSIBLE                                      ##
+##                                                                                 ##
+## Messages configuration template. Contains all of the available options          ##
+## for configuring the email notifications sent by the application.                ##
+## notice: for newLine use &lt;br/&gt;                                             ##
+## notice: for undefined use @null                                                 ##
+## ------------------------------------------------------------------------------- ##
+## Configuration for SPReg mail template                                           ##
+## These tags are allowed:                                                         ##
+## %REQUEST_ID% - will be replaced by ID of request                                ##
+## %EN_SERVICE_NAME% - will be replaced by the name of service (EN)                ##
+## %CS_SERVICE_NAME% - will be replaced by the name of service (CS)                ##
+## %EN_SERVICE_DESCRIPTION% - will be replaced by the description of service (EN)  ##
+## %CS_SERVICE_DESCRIPTION% - will be replaced by the description of service (CS)  ##
+## %EN_NEW_STATUS% - will be replaced by new status of request (EN)                ##
+## %CS_NEW_STATUS% - will be replaced by new status of request (CS)                ##
+## %EN_ACTION% - will be replaced by action of request (EN)                        ##
+## %CS_ACTION% - will be replaced by action of request (CS)                        ##
+## %REQUEST_DETAIL_LINK% - will be replaced by the link to request detail          ##
+## %APPROVAL_LINK% - will be replaced by link for request approval                 ##
+## %INVITER_NAME% - will be replaced with the name of user sending the invitation  ##
+## %INVITER_EMAIL% - will be replaced with the email of user sendin the invitation ##
+#####################################################################################
+
+enabled: {{ spreg_app_mail_enabled }}
+host: "{{ spreg_app_mail_host }}"
+port: {{ spreg_app_mail_port }}
+protocol: "{{ spreg_app_mail_protocol }}"
+auth: {{ spreg_app_mail_auth }}
+{% if spreg_app_mail_auth %}
+auth_username: "{{ spreg_app_mail_auth_username }}"
+auth_password: "{{ spreg_app_mail_auth_password }}"
+{% endif %}
+starttls_enable: {{ spreg_app_mail_starttls_enable }}
+connection_timeout: {{ spreg_app_mail_connection_timeout }}
+timeout: {{ spreg_app_mail_timeout }}
+write_timeout: {{ spreg_app_mail_write_timeout }}
+debug: {{ spreg_app_mail_debug }}
+
+from: "{{ spreg_app_mail_from }}"
+subject_prefix: "{{ spreg_app_mail_subject_prefix }}"
+footer: "{{ spreg_app_mail_footer }}"
+app_admin_emails: {{ spreg_app_mail_app_admin_emails }}
+templates:
+{% for template in spreg_app_mail_templates %}
+  {{ template.action }}:
+    subject:
+{%  for lang, subj in template.subject.items() %}
+      {{ lang }}: "{{ subj }}"
+{%  endfor %}
+    message:
+{%  for lang, msg in template.message.items() %}
+      {{ lang }}: "{{ msg }}"
+{%  endfor %}
+{% endfor %}
