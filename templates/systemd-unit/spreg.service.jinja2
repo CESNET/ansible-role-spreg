@@ -1,0 +1,10 @@
+[Unit]
+Description=Running JAR of SPReg APP
+
+[Service]
+User=root
+Group=root
+ExecStart=/usr/bin/java -jar {{ spreg_source_code_dest }}/target/spreg.jar --spring.config.location={{ spreg_config_destination }}/
+
+[Install]
+WantedBy=multi-user.target

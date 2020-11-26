@@ -10,7 +10,7 @@
         SSLCertificateFile      {{ spreg_apache_template_ssl_certificate_file_path }}
         SSLCertificateKeyFile   {{ spreg_apache_template_ssl_certificate_key_path }}
         SSLCertificateChainFile {{ spreg_apache_template_ssl_certificate_chain_path }}
-        SSLCACertificatePath {{ spreg_apache_template_ssl_certificate_path }}
+        SSLCACertificatePath    {{ spreg_apache_template_ssl_certificate_path }}
 
         <FilesMatch "\.(cgi|shtml|phtml|php)$">
                         SSLOptions +StdEnvVars
@@ -27,19 +27,14 @@
         # HSTS (mod_headers is required) (15768000 seconds = 6 months)
         Header always set Strict-Transport-Security "max-age=15768000"
 
-        RewriteEngine On
-        RedirectMatch ^/$ /spreg
-
         <LocationMatch "^/spreg/auth.*">
             AuthType shibboleth
             Require valid-user
             ShibRequestSetting requireSession 1
         </LocationMatch>
 
-        ProxyIOBufferSize   128000
-        ProxyPass           /spreg    ajp://localhost:8009/spreg
-        ProxyPassReverse    /spreg    ajp://localhost:8009/spreg
-        ProxyPassReverseCookiePath  /spreg /spreg
+        ProxyIOBufferSize    128000
+        ProxyPass            /spreg    ajp://localhost:8009{{ spreg_app_server_context_path }}
 
     </VirtualHost>
 </IfModule>

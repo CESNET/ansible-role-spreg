@@ -38,8 +38,8 @@
     yubikey_id: "{{ spreg_yubikey_id }}"
     yubikey_key: "{{ spreg_yubikey_key }}"
     yubikey_lognames: "{{ spreg_yubikey_lognames }}"
-    sudo_root_lognames: "{{ spreg_sudo_root_lognames }}"
-    sudo_other_lognames: "{{ spreg_sudo_perun_lognames }}"
+    sudo_root_lognames: "{{ spreg_yubikey_sudo_root_lognames }}"
+    sudo_other_lognames: "{{ spreg_yubikey_sudo_perun_lognames }}"
 
 - name: "SPreg - Set up monitoring by MetaCentrum's Nagios"
   import_role:
@@ -113,15 +113,16 @@
   vars:
     certs_dir: "{{ spreg_certs_dir }}"
 
-- name: "SPreg - Install Tomcat"
-  import_role:
-    name: cesnet.tomcat
-  vars:
-    tomcat_service_group: ""
-    tomcat_readonly_paths:
-      - "/etc/spreg"
-    tomcat_readwrite_paths:
-      - "/var/log/spreg"
+- name: "SPreg - create systemd unit file"
+  template:
+    src: "templates/systemd-unit/spreg.service.jinja2"
+    dest: "/lib/systemd/system/spreg.service"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: "SPreg - enable systemd unit"
+  shell: "systemctl daemon-reload && systemctl enable spreg.service"
 
 - name: "SPreg - deploy"
   import_tasks: spreg_deploy.yml
