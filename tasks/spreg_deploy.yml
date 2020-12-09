@@ -41,7 +41,7 @@
     - upgrade
 
 - name: "SPReg - rebuild"
-  command: "mvn clean package -Pbuild-ui -Dangular.api.url={{ spreg_app_angular_api_url }}"
+  command: "./mvnw clean package -Pbuild-ui -Dangular.api.url={{ spreg_app_angular_api_url }}"
   args:
     chdir: "{{ spreg_source_code_dest }}"
   tags:

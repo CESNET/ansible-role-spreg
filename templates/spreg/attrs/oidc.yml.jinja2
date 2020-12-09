@@ -38,7 +38,7 @@
 {% if attribute.regex is defined %}
   regex: "{{ attribute.regex }}"
 {% endif %}
-{% if attribute.allowed_keys is defined %}
+{% if attribute.allowed_values is defined %}
   allowed_values: {{ attribute.allowed_values }}
 {% endif %}
 {% if attribute.allowed_keys is defined %}

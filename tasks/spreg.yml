@@ -3,7 +3,6 @@
   apt:
     name:
       - openjdk-11-jdk
-      - maven
       - curl
       - git
     update_cache: yes
