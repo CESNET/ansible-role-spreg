@@ -5,7 +5,7 @@
     state: directory
     mode: 0640
   tags:
-    - configuration
+    - spreg_deploy_conf
 
 - name: "SPreg - Prepare subfolders for configuration"
   file:
@@ -16,7 +16,7 @@
   loop:
     - "{{ spreg_config_destination }}/attrs"
   tags:
-    - configuration
+    - spreg_deploy_conf
 
 - name: "Spreg - Copy configuration files"
   template:
@@ -28,7 +28,7 @@
     mode: 0640
   loop: "{{ spreg_config_list_of_configuration_files }}"
   tags:
-    - configuration
+    - spreg_deploy_conf
 
 - name: "SPreg - download code"
   git:
@@ -38,20 +38,31 @@
     force: yes
     update: yes
   tags:
-    - upgrade
+    - spreg_upgrade
 
 - name: "SPReg - rebuild"
-  command: "./mvnw clean package -Pbuild-ui -Dangular.api.url={{ spreg_app_angular_api_url }}"
+  command: "./mvnw clean package -Pui -Dangular.api.url=\"{{ spreg_app_angular_api_url }}\""
   args:
     chdir: "{{ spreg_source_code_dest }}"
   tags:
-    - upgrade
+    - spreg_upgrade
 
 - name: "SPreg - restart systemd unit"
-  command: "systemctl restart spreg.service"
+  register: spreg_systemd_res
+  systemd:
+    name: spreg.service
+    state: restarted
   tags:
-    - upgrade
-    - restart
+    - spreg_upgrade
+    - spreg_restart
+
+- name: "SPReg - check systemd unit is running"
+  fail:
+    msg: "spreg.service is not active"
+  when: spreg_systemd_res['status']['ActiveState'] != 'active'
+  tags:
+    - spreg_upgrade
+    - spreg_restart
 
 - name: "flush handlers"
   meta: flush_handlers
