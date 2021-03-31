@@ -82,7 +82,7 @@ spreg_unattended_upgrades_origin_patterns: |2
              "origin=Debian,codename=${distro_codename}";
              "origin=Debian,codename=${distro_codename}-updates";
              "origin=meta@cesnet.cz,a=stable";
-spreg_unattended_upgrades_blacklist: []
+spreg_unattended_upgrades_blacklist: ""
 
 # Mail address for unattended upgrades
 spreg_unattended_upgrades_mail_address: "{{ spreg_root_email_address }}"
@@ -103,7 +103,6 @@ spreg_monitoring_check_mk_plugins_file: []
 # List of monitoring services
 # This option is only for 'service_running.sh.jinja2' template
 monitoring_template_service_running_check_services:
-  - tomcat9
   - apache2
   - shibd
   - sendmail
@@ -165,11 +164,8 @@ spreg_apache_remove_sites:
   - default-ssl.conf
 spreg_apache_create_sites:
   - sites-available/spreg.conf
-  - sites-available/spreg-ssl.conf
 spreg_apache_enable_sites:
   - spreg.conf
-  - spreg-ssl.conf
-
 spreg_apache_template_server_name: "{{ spreg_server_name }}"
 spreg_apache_template_server_alias: "{{ spreg_server_name }}"
 spreg_apache_template_server_admin_mail: "{{ spreg_email_address }}"
@@ -180,9 +176,9 @@ spreg_apache_template_ssl_certificate_key_path: ""
 spreg_apache_template_ssl_certificate_chain_path: ""
 
 # Path to destination directory where will be cloned git repository
-spreg_source_code_repository_URL: "https://github.com/dBucik/perun-spRegistration-app"
+spreg_source_code_repository_URL: "https://github.com/CESNET/perun-spRegistration-app"
 spreg_source_code_dest: "/opt/spreg-app"
-spreg_source_code_version: "master"
+spreg_source_code_version: "production"
 
 # Path to directory, where will be every configuration file for spreg application
 spreg_config_destination: "/etc/perun-spRegistration"

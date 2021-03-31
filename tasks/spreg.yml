@@ -7,11 +7,13 @@
       - git
     update_cache: yes
   tags:
-    - install
+    - install_packages
 
 - name: "SPreg - Set working environment"
   import_role:
     name: cesnet.proxy_env
+  tags:
+    - proxy_env
 
 - name: "SPreg - Set firewall"
   import_role:
@@ -19,6 +21,8 @@
   vars:
     firewall_open_ssh_ports: "{{ spreg_firewall_open_ssh_ports }}"
     firewall_open_tcp_ports: "{{ spreg_firewall_open_tcp_ports }}"
+  tags:
+    - firewall
 
 - name: "SPreg - Set up unattended upgrades"
   import_role:
@@ -27,6 +31,8 @@
     unattended_upgrades_origin_patterns: "{{ spreg_unattended_upgrades_origin_patterns }}"
     unattended_upgrades_blacklist: "{{ spreg_unattended_upgrades_blacklist }}"
     root_email_address: "{{ spreg_unattended_upgrades_mail_address }}"
+  tags:
+    - unattended_upgrades
 
 - name: "SPreg - Set up Yubikeys"
   import_role:
@@ -39,6 +45,8 @@
     yubikey_lognames: "{{ spreg_yubikey_lognames }}"
     sudo_root_lognames: "{{ spreg_yubikey_sudo_root_lognames }}"
     sudo_other_lognames: "{{ spreg_yubikey_sudo_perun_lognames }}"
+  tags:
+    - yubikeys
 
 - name: "SPreg - Set up monitoring by MetaCentrum's Nagios"
   import_role:
@@ -49,12 +57,16 @@
     monitoring_check_mk_local_scripts_file: "{{ spreg_monitoring_check_mk_local_scripts_file }}"
     monitoring_check_mk_plugins_by_template: "{{ spreg_monitoring_check_mk_plugins_by_template }}"
     monitoring_check_mk_plugins_file: "{{ spreg_monitoring_check_mk_plugins_file }}"
+  tags:
+    - monitoring
 
 - name: "SPreg - Install sendmail"
   import_role:
     name: cesnet.sendmail
   vars:
     sendmail_relays: "{{ spreg_sendmail_relays }}"
+  tags:
+    - sendmail
 
 - name: "SPreg - Install and configure MariaDB"
   import_role:
@@ -65,12 +77,18 @@
     mariadb_users_to_create: "{{ spreg_mariadb_users_to_create }}"
     mariadb_users_privileges: "{{ spreg_mariadb_users_privileges }}"
     mariadb_scripts: "{{ spreg_mariadb_scripts }}"
+  tags:
+    - mariadb
 
 - name: "MARIADB_DATABASE_BACKUP - Copy backup script"
   copy:
     src: "backup_database.sh"
     dest: "/root/backup_database.sh"
     mode: 0700
+  tags:
+    - mariadb
+    - mariadb_backup
+    - mariadb_backup_copy
 
 - name: "MARIADB_DATABASE_BACKUP - Set daily cron job"
   cron:
@@ -78,6 +96,10 @@
     special_time: daily
     user: root
     job: "/root/backup_database.sh > /dev/null 2>&1"
+  tags:
+    - mariadb
+    - mariadb_backup
+    - mariadb_backup_cron
 
 - name: "SPreg - Install and configure Shibboleth"
   import_role:
@@ -95,6 +117,8 @@
     shibboleth_template_idp_entity_id: "{{ spreg_shibboleth_template_idp_entity_id }}"
     shibboleth_template_metadata_url: "{{ spreg_shibboleth_template_metadata_url }}"
     shibboleth_template_metadata_backup_file: "{{ spreg_shibboleth_template_metadata_backup_file }}"
+  tags:
+    - shibboleth
 
 - name: "SPreg - Install and configure Apache"
   import_role:
@@ -105,12 +129,17 @@
     apache_remove_sites: "{{ spreg_apache_remove_sites }}"
     apache_create_sites: "{{ spreg_apache_create_sites }}"
     apache_enable_sites: "{{ spreg_apache_enable_sites }}"
+  tags:
+    - apache
 
 - name: "SPreg - set Apache TLS"
   import_role:
     name: cesnet.apache_tls
   vars:
     certs_dir: "{{ spreg_certs_dir }}"
+  tags:
+    - apache
+    - apache_certs
 
 - name: "SPreg - create systemd unit file"
   template:
@@ -119,13 +148,23 @@
     owner: root
     group: root
     mode: 0644
+  tags:
+    - spreg
+    - spreg_systemd
 
 - name: "SPreg - enable systemd unit"
-  shell: "systemctl daemon-reload && systemctl enable spreg.service"
+  systemd:
+    daemon-reload: yes
+    enabled: yes
+    name: spreg.service
+  tags:
+    - spreg
+    - spreg_systemd
 
 - name: "SPreg - deploy"
   import_tasks: spreg_deploy.yml
   tags:
+    - spreg
     - spreg_deploy
 
 - name: "flush handlers"
