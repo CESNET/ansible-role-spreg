@@ -38,7 +38,7 @@
     force: yes
     update: yes
   tags:
-    - spreg_upgrade
+    - spreg_code_pull
 
 - name: "SPReg - rebuild"
   command: "./mvnw clean package -Pui -Dangular.api.url=\"{{ spreg_app_angular_api_url }}\""

@@ -14,6 +14,7 @@ spring:
     active: {{ spreg_spring_profile_active }}
 
 server:
+  error.whitelabel.enabled: false
   port: {{ spreg_app_server_port }}
   servlet:
     context-path: "{{ spreg_app_server_context_path }}"
