@@ -5,6 +5,7 @@
       - openjdk-11-jdk
       - curl
       - git
+      - build-essential
     update_cache: yes
   tags:
     - install_packages
@@ -79,6 +80,7 @@
     mariadb_scripts: "{{ spreg_mariadb_scripts }}"
   tags:
     - mariadb
+    - mariadb_install
 
 - name: "MARIADB_DATABASE_BACKUP - Copy backup script"
   copy:
@@ -88,7 +90,7 @@
   tags:
     - mariadb
     - mariadb_backup
-    - mariadb_backup_copy
+    - mariadb_copy_backup_script
 
 - name: "MARIADB_DATABASE_BACKUP - Set daily cron job"
   cron:
@@ -131,6 +133,7 @@
     apache_enable_sites: "{{ spreg_apache_enable_sites }}"
   tags:
     - apache
+    - apache_install
 
 - name: "SPreg - set Apache TLS"
   import_role:
@@ -139,7 +142,7 @@
     certs_dir: "{{ spreg_certs_dir }}"
   tags:
     - apache
-    - apache_certs
+    - apache_tls
 
 - name: "SPreg - create systemd unit file"
   template:
@@ -154,12 +157,14 @@
 
 - name: "SPreg - enable systemd unit"
   systemd:
+    name: spreg.service
     daemon-reload: yes
     enabled: yes
-    name: spreg.service
+    state: started
   tags:
     - spreg
     - spreg_systemd
+    - spreg_systemd_systemd_unit_enable
 
 - name: "SPreg - deploy"
   import_tasks: spreg_deploy.yml

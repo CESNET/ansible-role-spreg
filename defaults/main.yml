@@ -166,6 +166,8 @@ spreg_apache_create_sites:
   - sites-available/spreg.conf
 spreg_apache_enable_sites:
   - spreg.conf
+
+spreg_apache_template_virtualhost: "*"
 spreg_apache_template_server_name: "{{ spreg_server_name }}"
 spreg_apache_template_server_alias: "{{ spreg_server_name }}"
 spreg_apache_template_server_admin_mail: "{{ spreg_email_address }}"
